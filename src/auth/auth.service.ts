@@ -3,7 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import {bcrypt} from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
+import { signUpDto } from './dto/signup.dto';
 
 
 
@@ -16,8 +17,7 @@ export class AuthService {
     ) {}
 
 
-
-async signUp(signUpDto): Promise<{token: string}> {
+async signUp(signUpDto: signUpDto): Promise<{token: string}> {
     const {name, email, password} = signUpDto
 
     const hashPassword = await bcrypt.hash(password, 10);
@@ -30,7 +30,7 @@ async signUp(signUpDto): Promise<{token: string}> {
 
     const token = this.jwtService.sign({id: user._id})
 
-    return {token}
+    return {token};
 }
 
 }

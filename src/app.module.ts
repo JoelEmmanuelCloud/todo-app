@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { User } from './schemas/user.schema';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -18,6 +20,6 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, User, JwtService],
 })
 export class AppModule {}
